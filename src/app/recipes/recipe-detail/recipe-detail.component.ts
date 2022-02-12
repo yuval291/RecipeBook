@@ -9,10 +9,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
   styleUrls: ['./recipe-detail.component.css']
 })
 export class RecipeDetailComponent implements OnInit {
-
-
   @Output() openDrop = new EventEmitter<void>();
-
   recipe:Recipe;
   id:number;
 
@@ -21,11 +18,12 @@ export class RecipeDetailComponent implements OnInit {
     private router:Router) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(
-      (params:Params)=>{
-        this.id=+params['id'];
-        this.recipe=this.recipeService.getRecipe(this.id);
-      }
+    this.route.params
+      .subscribe(
+        (params:Params)=>{
+          this.id=+params['id'];
+          this.recipe=this.recipeService.getRecipe(this.id);
+        }
     );
   }
   openDropdown(){
@@ -39,6 +37,11 @@ export class RecipeDetailComponent implements OnInit {
   onEditRecipe(){
     this.router.navigate(['edit'],{relativeTo:this.route});
     // this.router.navigate(['../', this.id, 'edit'],{relativeTo:this.route});
+  }
+
+  onDeleteRecipe(){
+    this.recipeService.deleteRecipe(this.id);
+    this.router.navigate(['/recipes']); 
   }
 
 }
