@@ -9,26 +9,34 @@ export class RecipeService{
 
     recipeChanged = new Subject<Recipe[]>();
 
-    private recipes: Recipe[]= [
-        new Recipe(
-          'A test recipe',
-          'This is simply a test',
-          'https://static01.nyt.com/images/2021/03/28/dining/mc-shakshuka/mc-shakshuka-articleLarge.jpg',
-          [
-            new Ingredient('Meat',1),
-            new Ingredient('French Fries',20)
-          ]),
-        new Recipe(
-          'Another test recipe',
-          'This is simply a test',
-          'https://static01.nyt.com/images/2021/03/28/dining/mc-shakshuka/mc-shakshuka-articleLarge.jpg',
-          [
-            new Ingredient('Buns',2),
-            new Ingredient('Meat',1)
-          ])
-      ];
+    // private recipes: Recipe[]= [
+    //     new Recipe(
+    //       'A test recipe',
+    //       'This is simply a test',
+    //       'https://static01.nyt.com/images/2021/03/28/dining/mc-shakshuka/mc-shakshuka-articleLarge.jpg',
+    //       [
+    //         new Ingredient('Meat',1),
+    //         new Ingredient('French Fries',20)
+    //       ]),
+    //     new Recipe(
+    //       'Another test recipe',
+    //       'This is simply a test',
+    //       'https://static01.nyt.com/images/2021/03/28/dining/mc-shakshuka/mc-shakshuka-articleLarge.jpg',
+    //       [
+    //         new Ingredient('Buns',2),
+    //         new Ingredient('Meat',1)
+    //       ])
+    //   ];
+    
+      private recipes: Recipe[] = [];
 
       constructor(private shoppinglistService:ShoppingListService){ }
+
+      setRecipes(recipes: Recipe[]){
+        this.recipes = recipes;
+        this.recipeChanged.next(this.recipes.slice());
+      }
+
     // -SLICE-:  It will simply return a new array that is an exact copy of it in this utility file.
       getRecipes(){
         return this.recipes.slice();
